@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_azul_claro">
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TUS NOVELAS"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp" />
+
+    <TextView
+        android:id="@+id/subtitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titulo"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="15dp"
+        android:text="Gestiona tu biblioteca de novelas"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
+
+    <ListView
+        android:id="@+id/list_view_novelas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subtitulo"
+        android:layout_above="@id/bottom_buttons"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:layout_margin="20dp"/>
+
+    <ImageButton
+        android:id="@+id/ic_sync"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@android:drawable/ic_popup_sync"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:contentDescription="Sincronizar"/>
+
+    <LinearLayout
+        android:id="@+id/bottom_buttons"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_agregar"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Añadir"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/boton_azul_oscuro"
+            android:textColor="@color/blanco"/>
+
+        <Button
+            android:id="@+id/btn_eliminar"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Eliminar"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/boton_azul_oscuro"
+            android:textColor="@color/blanco"/>
+
+        <Button
+            android:id="@+id/btn_favoritos"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Favoritos"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/boton_azul_oscuro"
+            android:textColor="@color/blanco"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
