@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
+//Clase que representa la pantalla de favoritos
 public class FavoritosActivity extends AppCompatActivity {
 
     //Variables
