@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity{
     private List<Novela> novelas;
     private NovelaAdapter adapter;
     private FirebaseHelper firebaseHelper;
-    private ProgressBar progressBar;
 
 
     @Override
@@ -67,14 +65,19 @@ public class MainActivity extends AppCompatActivity{
 
         //Botón para sincronizar la lista de novelas con Firebase
         ImageButton syncButton = findViewById(R.id.ic_sync);
-        syncButton.setOnClickListener(v -> iniciarSincronizacion());
+        syncButton.setOnClickListener(v -> {
+            new SyncTask(this, novelas).execute();
+        });
 
         //Sincronización automática con AlarmManager cada 2 minutos
         AlarmManagerUtil.manageSync(this);
+    }
 
-        //Inicializar la ProgressBar
-        progressBar = findViewById(R.id.progressBar);
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Actualizar la lista de novelas
+        adapter.notifyDataSetChanged();
     }
 
     //Método para mostrar el diálogo para añadir novela a la lista
@@ -221,37 +224,5 @@ public class MainActivity extends AppCompatActivity{
             }
         }
         return favoritas;
-    }
-
-    //Método para iniciar la sincronización y manejar la ProgressBar
-    private void iniciarSincronizacion() {
-        Toast.makeText(this, "Iniciando sincronización manual...", Toast.LENGTH_SHORT).show();
-        progressBar.setVisibility(View.VISIBLE); // Mostrar ProgressBar
-
-        //Ejecutar la tarea de sincronización
-        new SyncTask(this, cargarNovelasLocales()) {
-            @Override
-            protected void onPostExecute(Boolean success) {
-                super.onPostExecute(success);
-                //Ocultar ProgressBar después de la sincronización
-                progressBar.setVisibility(View.GONE);
-
-                //Mostrar notificación o mensaje según el resultado
-                if (success) {
-                    Toast.makeText(MainActivity.this, "Sincronización completada con éxito", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Error en la sincronización", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }.execute();
-    }
-
-    //Método que simula la carga de novelas locales
-    private List<Novela> cargarNovelasLocales() {
-        FirebaseHelper firebaseHelper = new FirebaseHelper();
-
-        //Cargar novelas locales desde la base de datos interna de la app y devolverlas
-        List<Novela> listaNovelasLocales = firebaseHelper.obtenerNovelas();
-        return listaNovelasLocales;
     }
 }

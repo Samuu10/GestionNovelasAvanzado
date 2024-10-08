@@ -26,19 +26,19 @@ public class FavoritosActivity extends AppCompatActivity {
 
         //Creación del ListView
         ListView listViewFavoritos = findViewById(R.id.list_view_favoritos);
+
         //Obtener las novelas favoritas de MainActivity a partir del intent
         novelasFavoritas = getIntent().getParcelableArrayListExtra("novelas_favoritas");
         if (novelasFavoritas == null) {
             novelasFavoritas = new ArrayList<>();
         }
+
         //Crear el adaptador con las novelas favoritas
         adapter = new NovelaAdapter(this, novelasFavoritas);
         listViewFavoritos.setAdapter(adapter);
 
         //Botón para volver al MainActivity
         btnVolver = findViewById(R.id.btn_volver);
-        btnVolver.setOnClickListener(v -> {
-            startActivity(new Intent(FavoritosActivity.this, MainActivity.class));
-        });
+        btnVolver.setOnClickListener(v -> finish());
     }
 }
