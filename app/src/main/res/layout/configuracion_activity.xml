@@ -8,7 +8,7 @@
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FAVORITOS"
+        android:text="AJUSTES"
         android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="?attr/android:textColor"
@@ -22,21 +22,38 @@
         android:layout_below="@id/titulo"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="15dp"
-        android:text="Tus novelas favoritas"
+        android:text="Configura la aplicación a tu gusto"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:textColor="?attr/android:textColor" />
+        android:textColor="?attr/android:textColor"/>
 
-    <ListView
-        android:id="@+id/list_view_favoritos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_below="@id/subtitulo"
-        android:layout_above="@id/btn_volver"
-        android:layout_margin="20dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5dp"/>
+        android:layout_margin="10dp"
+        android:padding="16dp">
+
+            <Switch
+                android:id="@+id/switch_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modo Oscuro" />
+
+            <Button
+                android:id="@+id/btn_backup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Backup Data"/>
+
+            <Button
+                android:id="@+id/btn_restore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Restore Data"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_volver"

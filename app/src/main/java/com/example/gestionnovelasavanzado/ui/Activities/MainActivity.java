@@ -1,7 +1,10 @@
 package com.example.gestionnovelasavanzado.ui.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +21,14 @@ import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
 import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.AlarmManagerUtil;
 import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.FirebaseHelper;
 import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.SyncTask;
+import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +39,23 @@ public class MainActivity extends AppCompatActivity{
     private List<Novela> novelas;
     private NovelaAdapter adapter;
     private FirebaseHelper firebaseHelper;
-
+    private PreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        preferencesManager = new PreferencesManager(this);
+
+        // Aplicar el tema antes de setContentView
+        if (preferencesManager.isDarkMode()) {
+            setTheme(R.style.Theme_GestionNovelasAvanzado_Night);
+        } else {
+            setTheme(R.style.Theme_GestionNovelasAvanzado);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        int iconColor = getResources().getColor(R.color.iconColor);
 
         //Inicializar listas
         novelas = new ArrayList<>();
@@ -49,7 +68,7 @@ public class MainActivity extends AppCompatActivity{
         //Inicializar FirebaseHelper
         firebaseHelper = new FirebaseHelper();
 
-        //Configurar los botones
+        //Configurar los botones para gestionar las novelas
         findViewById(R.id.btn_agregar).setOnClickListener(v -> mostrarDialogoAñadirNovela());
         findViewById(R.id.btn_eliminar).setOnClickListener(v -> mostrarDialogoEliminarNovela());
 
@@ -65,8 +84,17 @@ public class MainActivity extends AppCompatActivity{
 
         //Botón para sincronizar la lista de novelas con Firebase
         ImageButton syncButton = findViewById(R.id.ic_sync);
+        syncButton.setColorFilter(new PorterDuffColorFilter(iconColor, PorterDuff.Mode.SRC_IN));
         syncButton.setOnClickListener(v -> {
             new SyncTask(this, novelas).execute();
+        });
+
+        // Button to go to the configuration activity
+        ImageButton menuButton = findViewById(R.id.menu_hamburguesa);
+        menuButton.setColorFilter(new PorterDuffColorFilter(iconColor, PorterDuff.Mode.SRC_IN));
+        menuButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ConfiguracionActivity.class);
+            startActivity(intent);
         });
 
         //Sincronización automática con AlarmManager cada 2 minutos
@@ -224,5 +252,46 @@ public class MainActivity extends AppCompatActivity{
             }
         }
         return favoritas;
+    }
+
+    //Método para hacer una copia de seguridad
+    protected void backupData() {
+        try {
+            File file = new File(getExternalFilesDir(null), "backup.txt");
+            FileOutputStream fos = new FileOutputStream(file);
+            for (Novela novela : novelas) {
+                String data = novela.getTitulo() + "," + novela.getAutor() + "," + novela.getAñoPublicacion() + "," + novela.getSinopsis() + "," + novela.getFavorito() + "\n";
+                fos.write(data.getBytes());
+            }
+            fos.close();
+            Toast.makeText(this, "Backup completed", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Backup failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //Método para restaurar los datos
+    protected void restoreData() {
+        try {
+            File file = new File(getExternalFilesDir(null), "backup.txt");
+            FileInputStream fis = new FileInputStream(file);
+            byte[] data = new byte[(int) file.length()];
+            fis.read(data);
+            fis.close();
+            String[] novelasData = new String(data).split("\n");
+            novelas.clear();
+            for (String novelaData : novelasData) {
+                String[] fields = novelaData.split(",");
+                Novela novela = new Novela(fields[0], fields[1], Integer.parseInt(fields[2]), fields[3]);
+                novela.setFavorito(Boolean.parseBoolean(fields[4]));
+                novelas.add(novela);
+            }
+            adapter.notifyDataSetChanged();
+            Toast.makeText(this, "Restore completed", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Restore failed", Toast.LENGTH_SHORT).show();
+        }
     }
 }

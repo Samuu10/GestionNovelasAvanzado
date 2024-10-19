@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
+import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +20,19 @@ public class FavoritosActivity extends AppCompatActivity {
     private List<Novela> novelasFavoritas;
     private NovelaAdapter adapter;
     private Button btnVolver;
+    private PreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        preferencesManager = new PreferencesManager(this);
+
+        // Aplicar el tema antes de setContentView
+        if (preferencesManager.isDarkMode()) {
+            setTheme(R.style.Theme_GestionNovelasAvanzado_Night);
+        } else {
+            setTheme(R.style.Theme_GestionNovelasAvanzado);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favoritos_activity);
 
