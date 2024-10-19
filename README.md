@@ -78,6 +78,29 @@ base de datos a la que se han añadido 20 novelas de ejemplo para probar la appl
 `FirebaseHelper` gestiona todas las operaciones relacionadas con la base de datos,
 permitiendo que las novelas se sincronicen y persistan a través de diferentes sesiones de la aplicación.
 
+**Novelas añadidas a Firebase como ejemplo** (escribir literal):
+
+   - Don Quijote de la Mancha
+   - La Odisea
+   - La Iliada
+   - Crimen y Castigo
+   - Orgullo y Prejuicio
+   - El Retrato de Dorian Gray
+   - Matar a un ruiseñor
+   - 1984
+   - Moby Dick
+   - El Gran Gatsby
+   - Ulises
+   - Madame Bovary
+   - La Metamorfosis
+   - En busca del tiempo perdido
+   - El guardián entre el centeno
+   - El señor de los anillos
+   - Cien Años de Soledad
+   - Fahrenheit 451
+   - Las uvas de la ira
+   - El amor en los tiempos del cólera
+
 
 Link al reposirotio: https://github.com/Samuu10/GestionNovelasAvanzado.git
 
