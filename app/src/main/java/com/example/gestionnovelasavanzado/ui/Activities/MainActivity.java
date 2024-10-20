@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
@@ -39,21 +41,21 @@ public class MainActivity extends AppCompatActivity{
     private List<Novela> novelas;
     private NovelaAdapter adapter;
     private FirebaseHelper firebaseHelper;
-    private PreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        preferencesManager = new PreferencesManager(this);
+        PreferencesManager preferencesManager = new PreferencesManager(this);
 
         // Aplicar el tema antes de setContentView
         if (preferencesManager.isDarkMode()) {
-            setTheme(R.style.Theme_GestionNovelasAvanzado_Night);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
-            setTheme(R.style.Theme_GestionNovelasAvanzado);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         int iconColor = getResources().getColor(R.color.iconColor);
 

@@ -2,11 +2,11 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#000000</color>
-    <color name="textColor">#000000</color>
+    <color name="colorAccent">#84888A</color>
+    <color name="textColor">#84888A</color>
     <color name="backgroundColor">#FFFFFF</color>
-    <color name="iconColor">#000000</color>
-    <color name="buttonBackground">#00008B</color>
+    <color name="iconColor">#84888A</color>
+    <color name="buttonBackground">#84888A</color>
     <color name="buttonText">#FFFFFF</color>
-    <color name="itemBackgrounColor">#ADD8E6</color>
+    <color name="itemBackgroundColor">#84888A</color>
 </resources>

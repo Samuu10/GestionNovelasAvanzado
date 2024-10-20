@@ -10,7 +10,7 @@
         android:text="Título:"
         android:textStyle="bold"
         android:textSize="15sp"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/android:textColor"
         android:layout_alignParentTop="true" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="Autor: "
         android:textSize="15sp"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/android:textColor"
         android:layout_below="@id/textViewTitulo"
         android:layout_marginTop="8dp" />
 
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:text="Año: "
         android:textSize="15sp"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/android:textColor"
         android:layout_below="@id/textViewAutor"
         android:layout_marginTop="8dp" />
 
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Sinopsis: "
         android:textSize="15sp"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/android:textColor"
         android:layout_below="@id/textViewAño"
         android:layout_marginTop="8dp" />
 
