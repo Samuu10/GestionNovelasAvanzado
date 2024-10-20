@@ -10,5 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:inputType="text"
+        android:textColor="?attr/android:textColor"
         android:hint="Título de la Novela" />
 </LinearLayout>
