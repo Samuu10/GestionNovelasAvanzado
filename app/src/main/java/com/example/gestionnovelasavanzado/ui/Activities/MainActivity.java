@@ -1,6 +1,5 @@
 package com.example.gestionnovelasavanzado.ui.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
@@ -41,12 +39,13 @@ public class MainActivity extends AppCompatActivity{
     private List<Novela> novelas;
     private NovelaAdapter adapter;
     private FirebaseHelper firebaseHelper;
+    private PreferencesManager preferencesManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        PreferencesManager preferencesManager = new PreferencesManager(this);
+        preferencesManager = new PreferencesManager(this);
 
-        // Aplicar el tema antes de setContentView
+        //Aplicar el tema de la aplicación antes de setContentView
         if (preferencesManager.isDarkMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -56,11 +55,10 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         int iconColor = getResources().getColor(R.color.iconColor);
 
         //Inicializar listas
-        novelas = new ArrayList<>();
+        novelas = preferencesManager.loadNovelas();
 
         //Configurar la lista de novelas y el adaptador
         ListView listView = findViewById(R.id.list_view_novelas);
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity{
             new SyncTask(this, novelas).execute();
         });
 
-        // Button to go to the configuration activity
+        //Botón para ir a la actividad de configuración
         ImageButton menuButton = findViewById(R.id.menu_hamburguesa);
         menuButton.setColorFilter(new PorterDuffColorFilter(iconColor, PorterDuff.Mode.SRC_IN));
         menuButton.setOnClickListener(v -> {
@@ -173,6 +171,7 @@ public class MainActivity extends AppCompatActivity{
                             //Añadir a la lista local si no está duplicada (verificado previamente)
                             novelas.add(novela);
                             adapter.notifyDataSetChanged();
+                            preferencesManager.saveNovelas(novelas);
                             Toast.makeText(MainActivity.this, "Novela añadida a la lista", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -200,6 +199,7 @@ public class MainActivity extends AppCompatActivity{
             if (novelas.get(i).getTitulo().equalsIgnoreCase(titulo)) {
                 novelas.remove(i);
                 adapter.notifyDataSetChanged();
+                preferencesManager.saveNovelas(novelas);
                 encontrado = true;
                 break;
             }
@@ -240,6 +240,7 @@ public class MainActivity extends AppCompatActivity{
                 .setPositiveButton("Cerrar", null)
                 .setNeutralButton(novela.getFavorito() ? "Eliminar de Favoritos" : "Añadir a Favoritos", (dialog, id) -> {
                     novela.setFavorito(!novela.getFavorito());
+                    preferencesManager.saveNovelas(novelas);
                     Toast.makeText(this, novela.getFavorito() ? "Añadida a favoritos" : "Eliminada de favoritos", Toast.LENGTH_SHORT).show();
                 });
         builder.create().show();
@@ -290,6 +291,7 @@ public class MainActivity extends AppCompatActivity{
                 novelas.add(novela);
             }
             adapter.notifyDataSetChanged();
+            preferencesManager.saveNovelas(novelas);
             Toast.makeText(this, "Restore completed", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();

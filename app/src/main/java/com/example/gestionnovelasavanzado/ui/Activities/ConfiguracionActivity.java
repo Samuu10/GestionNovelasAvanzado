@@ -20,7 +20,7 @@ public class ConfiguracionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         preferencesManager = new PreferencesManager(this);
 
-        // Aplicar el tema antes de setContentView
+        //Aplicar el tema de la aplicación antes de setContentView
         if (preferencesManager.isDarkMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
