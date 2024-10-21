@@ -26,7 +26,7 @@ public class BackupTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPreExecute() {
-        handler.post(() -> Toast.makeText(context, "Backup started", Toast.LENGTH_SHORT).show());
+        handler.post(() -> Toast.makeText(context, "Iniciando copia de seguridad...", Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -51,9 +51,9 @@ public class BackupTask extends AsyncTask<Void, Void, Boolean> {
     protected void onPostExecute(Boolean result) {
         handler.post(() -> {
             if (result) {
-                Toast.makeText(context, "Backup completed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Copia de seguridad completada", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "Backup failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Copia de seguridad fallida", Toast.LENGTH_SHORT).show();
             }
         });
     }

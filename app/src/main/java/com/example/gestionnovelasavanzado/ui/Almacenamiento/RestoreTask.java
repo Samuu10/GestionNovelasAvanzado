@@ -26,7 +26,7 @@ public class RestoreTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPreExecute() {
-        handler.post(() -> Toast.makeText(context, "Restore started", Toast.LENGTH_SHORT).show());
+        handler.post(() -> Toast.makeText(context, "Iniciando restauración de datos...", Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -61,9 +61,9 @@ public class RestoreTask extends AsyncTask<Void, Void, Boolean> {
     protected void onPostExecute(Boolean result) {
         handler.post(() -> {
             if (result) {
-                Toast.makeText(context, "Restore completed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Restauración completada", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, "Restore failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Restauración fallida", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -69,7 +69,7 @@ public class ConfiguracionActivity extends AppCompatActivity {
     //Método para restaurar los datos
     protected void restoreData() {
         new RestoreTask(this, novelas, preferencesManager).execute();
-        //Riniciar la actividad principal después de restaurar los datos
+        //Reiniciar la actividad principal después de restaurar los datos
         Intent intent = getIntent();
         finish();
         startActivity(intent);

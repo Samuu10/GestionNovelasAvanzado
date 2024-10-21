@@ -1,12 +1,9 @@
 package com.example.gestionnovelasavanzado.ui.Activities;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
@@ -62,9 +60,11 @@ public class MainActivity extends AppCompatActivity{
         novelas = preferencesManager.loadNovelas();
 
         //Configurar la lista de novelas y el adaptador
-        ListView listView = findViewById(R.id.list_view_novelas);
-        adapter = new NovelaAdapter(this, novelas);
-        listView.setAdapter(adapter);
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_novelas);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new NovelaAdapter(this, novelas, novela -> mostrarDetallesNovela(novela));
+        recyclerView.setAdapter(adapter);
 
         //Inicializar FirebaseHelper
         firebaseHelper = new FirebaseHelper();

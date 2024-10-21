@@ -5,6 +5,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
@@ -36,18 +39,16 @@ public class FavoritosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favoritos_activity);
 
-        //Creación del ListView
-        ListView listViewFavoritos = findViewById(R.id.list_view_favoritos);
-
-        //Obtener las novelas favoritas de MainActivity a partir del intent
         novelasFavoritas = getIntent().getParcelableArrayListExtra("novelas_favoritas");
         if (novelasFavoritas == null) {
             novelasFavoritas = new ArrayList<>();
         }
 
-        //Crear el adaptador con las novelas favoritas
-        adapter = new NovelaAdapter(this, novelasFavoritas);
-        listViewFavoritos.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_favoritos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new NovelaAdapter(this, novelasFavoritas, null);
+        recyclerView.setAdapter(adapter);
+
 
         //Botón para volver al MainActivity
         btnVolver = findViewById(R.id.btn_volver);

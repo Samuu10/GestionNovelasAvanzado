@@ -5,61 +5,56 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.BaseAdapter;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.gestionnovelasavanzado.R;
-import com.example.gestionnovelasavanzado.ui.Activities.MainActivity;
 import java.util.List;
 
 //Clase NovelaAdapter que extiende BaseAdapter y se utiliza para mostrar la lista de novelas
-public class NovelaAdapter extends BaseAdapter {
+public class NovelaAdapter extends RecyclerView.Adapter<NovelaAdapter.NovelaViewHolder> {
 
-    //Variables
     private Context context;
     private List<Novela> novelas;
+    private OnItemClickListener listener;
 
-    //Constructor para inicializar el adaptador con el contexto y la lista de novelas
-    public NovelaAdapter(Context context, List<Novela> novelas) {
+    public interface OnItemClickListener {
+        void onItemClick(Novela novela);
+    }
+
+    public NovelaAdapter(Context context, List<Novela> novelas, OnItemClickListener listener) {
         this.context = context;
         this.novelas = novelas;
+        this.listener = listener;
+    }
+
+    @NonNull
+    @Override
+    public NovelaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_novela, parent, false);
+        return new NovelaViewHolder(view);
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(@NonNull NovelaViewHolder holder, int position) {
+        Novela novela = novelas.get(position);
+        holder.textViewTitulo.setText(novela.getTitulo());
+        holder.textViewAutor.setText(novela.getAutor());
+        holder.itemView.setOnClickListener(v -> listener.onItemClick(novela));
+    }
+
+    @Override
+    public int getItemCount() {
         return novelas.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return novelas.get(position);
-    }
+    public static class NovelaViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewTitulo;
+        TextView textViewAutor;
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    //Método para inflar la vista de cada elemento de la lista
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_novela, parent, false);
+        public NovelaViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textViewTitulo = itemView.findViewById(R.id.textViewTitulo);
+            textViewAutor = itemView.findViewById(R.id.textViewAutor);
         }
-
-        Novela novela = novelas.get(position);
-        TextView textViewTitulo = view.findViewById(R.id.textViewTitulo);
-        TextView textViewAutor = view.findViewById(R.id.textViewAutor);
-
-        textViewTitulo.setText(novela.getTitulo());
-        textViewAutor.setText(novela.getAutor());
-
-        //Añadir un evento al clic de la novela
-        view.setOnClickListener(v -> {
-            if (context instanceof MainActivity) {
-                ((MainActivity) context).mostrarDetallesNovela(novela); // Llama a mostrarDetallesNovela
-            }
-        });
-
-        return view;
     }
 }

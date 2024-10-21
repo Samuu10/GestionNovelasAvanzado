@@ -28,15 +28,18 @@
         android:textStyle="bold"
         android:textColor="?attr/android:textColor" />
 
-    <ListView
-        android:id="@+id/list_view_novelas"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
+        android:layout_height="0dp"
         android:layout_below="@id/subtitulo"
         android:layout_above="@id/bottom_buttons"
-        android:dividerHeight="5dp"
-        android:layout_margin="20dp" />
+        android:layout_margin="25dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_novelas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/menu_hamburguesa"
