@@ -1,9 +1,12 @@
 package com.example.gestionnovelasavanzado.ui.Activities;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
@@ -25,10 +30,6 @@ import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManage
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -255,47 +256,5 @@ public class MainActivity extends AppCompatActivity{
             }
         }
         return favoritas;
-    }
-
-    //Método para hacer una copia de seguridad
-    protected void backupData() {
-        try {
-            File file = new File(getExternalFilesDir(null), "backup.txt");
-            FileOutputStream fos = new FileOutputStream(file);
-            for (Novela novela : novelas) {
-                String data = novela.getTitulo() + "," + novela.getAutor() + "," + novela.getAñoPublicacion() + "," + novela.getSinopsis() + "," + novela.getFavorito() + "\n";
-                fos.write(data.getBytes());
-            }
-            fos.close();
-            Toast.makeText(this, "Backup completed", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Backup failed", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    //Método para restaurar los datos
-    protected void restoreData() {
-        try {
-            File file = new File(getExternalFilesDir(null), "backup.txt");
-            FileInputStream fis = new FileInputStream(file);
-            byte[] data = new byte[(int) file.length()];
-            fis.read(data);
-            fis.close();
-            String[] novelasData = new String(data).split("\n");
-            novelas.clear();
-            for (String novelaData : novelasData) {
-                String[] fields = novelaData.split(",");
-                Novela novela = new Novela(fields[0], fields[1], Integer.parseInt(fields[2]), fields[3]);
-                novela.setFavorito(Boolean.parseBoolean(fields[4]));
-                novelas.add(novela);
-            }
-            adapter.notifyDataSetChanged();
-            preferencesManager.saveNovelas(novelas);
-            Toast.makeText(this, "Restore completed", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Restore failed", Toast.LENGTH_SHORT).show();
-        }
     }
 }

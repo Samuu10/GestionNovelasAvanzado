@@ -29,9 +29,4 @@ public class FirebaseHelper {
         Query query = databaseReference.orderByChild("titulo").equalTo(titulo);
         query.addListenerForSingleValueEvent(listener);
     }
-
-    //Método para obtener las novelas
-    public List<Novela> obtenerNovelas() {
-        return novelas;
-    }
 }

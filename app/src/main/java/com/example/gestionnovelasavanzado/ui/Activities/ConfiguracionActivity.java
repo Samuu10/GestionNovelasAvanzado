@@ -6,15 +6,19 @@ import android.widget.Button;
 import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-
 import com.example.gestionnovelasavanzado.R;
+import com.example.gestionnovelasavanzado.ui.Almacenamiento.BackupTask;
+import com.example.gestionnovelasavanzado.ui.Almacenamiento.RestoreTask;
+import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManager;
+import java.util.List;
 
 public class ConfiguracionActivity extends AppCompatActivity {
 
     //Variables
     private PreferencesManager preferencesManager;
-    private Button btnVolver;
+    private Button btnVolver, backupButton, restoreButton;
+    private List<Novela> novelas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,9 @@ public class ConfiguracionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.configuracion_activity);
 
+        //Inicializar la lista de novelas
+        novelas = preferencesManager.loadNovelas();
+
         //Switch para cambiar el tema de la aplicación
         Switch themeSwitch = findViewById(R.id.switch_theme);
         themeSwitch.setChecked(preferencesManager.isDarkMode());
@@ -41,18 +48,30 @@ public class ConfiguracionActivity extends AppCompatActivity {
             recreate();
         });
 
-        //Botón para hacer backup de la los datos
-        findViewById(R.id.btn_backup).setOnClickListener(v -> {
-            ((MainActivity) getParent()).backupData();
-        });
+        //Botón para hacer backup de los datos
+        backupButton = findViewById(R.id.btn_backup);
+        backupButton.setOnClickListener(v -> backupData());
 
         //Botón para restaurar los datos
-        findViewById(R.id.btn_restore).setOnClickListener(v -> {
-            ((MainActivity) getParent()).restoreData();
-        });
+        restoreButton = findViewById(R.id.btn_restore);
+        restoreButton.setOnClickListener(v -> restoreData());
 
         //Botón para volver al MainActivity
         btnVolver = findViewById(R.id.btn_volver);
         btnVolver.setOnClickListener(v -> finish());
+    }
+
+    //Método para hacer una copia de seguridad de los datos
+    protected void backupData() {
+        new BackupTask(this, novelas, preferencesManager.isDarkMode()).execute();
+    }
+
+    //Método para restaurar los datos
+    protected void restoreData() {
+        new RestoreTask(this, novelas, preferencesManager).execute();
+        //Riniciar la actividad principal después de restaurar los datos
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }
