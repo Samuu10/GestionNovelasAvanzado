@@ -9,4 +9,5 @@
     <color name="buttonBackground">#84888A</color>
     <color name="buttonText">#FFFFFF</color>
     <color name="itemBackgroundColor">#84888A</color>
+    <color name="statusBarColor">#84888A</color>
 </resources>
