@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -17,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
@@ -126,7 +124,6 @@ public class MainActivity extends AppCompatActivity{
                     añadirNovelaLista(title);
                 });
         builder.create().show();
-
     }
 
     //Método para mostrar el diálogo para eliminar novela de la lista
@@ -145,6 +142,7 @@ public class MainActivity extends AppCompatActivity{
                     String title = editTextTitle.getText().toString();
                     eliminarNovelaLista(title);
                 });
+
         builder.create().show();
     }
 
