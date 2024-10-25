@@ -39,11 +39,13 @@ public class FavoritosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favoritos_activity);
 
+        //Inicializar la lista de novelas favoritas
         novelasFavoritas = getIntent().getParcelableArrayListExtra("novelas_favoritas");
         if (novelasFavoritas == null) {
             novelasFavoritas = new ArrayList<>();
         }
 
+        //Inicializar el RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recycler_view_favoritos);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NovelaAdapter(this, novelasFavoritas, null);

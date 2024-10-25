@@ -19,7 +19,6 @@ public class PreferencesManager {
     private SharedPreferences sharedPreferences;
     private Gson gson;
 
-
     //Constructor
     public PreferencesManager(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

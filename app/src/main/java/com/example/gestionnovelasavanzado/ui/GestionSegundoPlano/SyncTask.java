@@ -26,6 +26,13 @@ public class SyncTask extends AsyncTask<Void, Integer, String> {
         this.novelas = novelas;
     }
 
+    //Método onPreExecute para mostrar mensaje antes de iniciar la sincronización
+    @Override
+    protected void onPreExecute() {
+        //Mostrar notificación de inicio de sincronización
+        Toast.makeText(context, "Iniciando sincronización...", Toast.LENGTH_SHORT).show();
+    }
+
     //Método doInBackground para sincronizar la lista de novelas con Firebase
     @Override
     protected String doInBackground(Void... voids) {
@@ -46,7 +53,7 @@ public class SyncTask extends AsyncTask<Void, Integer, String> {
                 publishProgress(progress);
 
                 //Simular un pequeño retraso por cada novela
-                Thread.sleep(500); // Puedes ajustar este tiempo si es necesario
+                Thread.sleep(500);
             }
 
             return "Sincronización completada con éxito.";
@@ -55,13 +62,6 @@ public class SyncTask extends AsyncTask<Void, Integer, String> {
             e.printStackTrace();
             return "Error en la sincronización.";
         }
-    }
-
-    //Método onPreExecute para mostrar mensaje antes de iniciar la sincronización
-    @Override
-    protected void onPreExecute() {
-        //Mostrar notificación de inicio de sincronización
-        Toast.makeText(context, "Iniciando sincronización...", Toast.LENGTH_SHORT).show();
     }
 
     //Método onPostExecute para notificar al usuario de la sincronización

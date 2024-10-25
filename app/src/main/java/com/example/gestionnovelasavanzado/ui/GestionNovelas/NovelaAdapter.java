@@ -13,20 +13,24 @@ import java.util.List;
 //Clase NovelaAdapter que extiende BaseAdapter y se utiliza para mostrar la lista de novelas
 public class NovelaAdapter extends RecyclerView.Adapter<NovelaAdapter.NovelaViewHolder> {
 
+    //Atributos
     private Context context;
     private List<Novela> novelas;
     private OnItemClickListener listener;
 
+    //Interfaz OnItemClickListener para manejar el evento de clic en un elemento de la lista
     public interface OnItemClickListener {
         void onItemClick(Novela novela);
     }
 
+    //Constructor
     public NovelaAdapter(Context context, List<Novela> novelas, OnItemClickListener listener) {
         this.context = context;
         this.novelas = novelas;
         this.listener = listener;
     }
 
+    //Método para crear una nueva vista
     @NonNull
     @Override
     public NovelaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,6 +38,7 @@ public class NovelaAdapter extends RecyclerView.Adapter<NovelaAdapter.NovelaView
         return new NovelaViewHolder(view);
     }
 
+    //Método para enlazar los datos de la lista con los elementos de la vista
     @Override
     public void onBindViewHolder(@NonNull NovelaViewHolder holder, int position) {
         Novela novela = novelas.get(position);
@@ -42,11 +47,13 @@ public class NovelaAdapter extends RecyclerView.Adapter<NovelaAdapter.NovelaView
         holder.itemView.setOnClickListener(v -> listener.onItemClick(novela));
     }
 
+    //Método para obtener el número de elementos en la lista
     @Override
     public int getItemCount() {
         return novelas.size();
     }
 
+    //Clase NovelaViewHolder que extiende RecyclerView.ViewHolder y se utiliza para mantener las referencias de los elementos de la vista
     public static class NovelaViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTitulo;
         TextView textViewAutor;

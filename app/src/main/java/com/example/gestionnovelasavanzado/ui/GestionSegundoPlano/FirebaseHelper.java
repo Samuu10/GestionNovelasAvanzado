@@ -25,7 +25,7 @@ public class FirebaseHelper {
     //Método para cargar novelas desde Firebase
     public void cargarNovelas(String titulo, ValueEventListener listener) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("novelas");
-        // Filtrar por el título especificado
+        //Filtrar por el título especificado
         Query query = databaseReference.orderByChild("titulo").equalTo(titulo);
         query.addListenerForSingleValueEvent(listener);
     }

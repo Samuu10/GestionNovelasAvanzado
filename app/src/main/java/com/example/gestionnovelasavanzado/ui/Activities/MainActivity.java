@@ -147,18 +147,18 @@ public class MainActivity extends AppCompatActivity{
     }
 
     //Método que busca la novela en Firebase y la añade solo a la lista
-    private void añadirNovelaLista(String title) {
+    private void añadirNovelaLista(String titulo) {
         //Verificar primero si la novela ya está en la lista antes de consultar Firebase
         for (Novela novela : novelas) {
             //Si está en la lista, la novela no se añade y se muestra un mensaje
-            if (novela.getTitulo().equalsIgnoreCase(title)) {
+            if (novela.getTitulo().equalsIgnoreCase(titulo)) {
                 Toast.makeText(MainActivity.this, "La novela ya está en la lista", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
 
         //Si no está en la lista, buscar en Firebase
-        firebaseHelper.cargarNovelas(title, new ValueEventListener() {
+        firebaseHelper.cargarNovelas(titulo, new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //Si la novela existe en Firebase la añadimos a la lista
