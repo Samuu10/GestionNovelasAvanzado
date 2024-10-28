@@ -24,7 +24,7 @@ public class AlarmManagerUtil {
 
         //Crear un PendingIntent para la tarea de sincronización y configurarlo para que se repita cada 2 minutos
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, pendingIntentFlag);
-
+        //Obtener el servicio de AlarmManager
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             //Configurar la tarea de sincronización para que se repita cada 2 minutos

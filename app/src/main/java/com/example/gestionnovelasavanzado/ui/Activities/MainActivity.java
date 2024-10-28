@@ -52,13 +52,13 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Color para los iconos
         int iconColor = getResources().getColor(R.color.iconColor);
 
         //Inicializar listas
         novelas = preferencesManager.loadNovelas();
 
         //Configurar la lista de novelas y el adaptador
-
         RecyclerView recyclerView = findViewById(R.id.recycler_view_novelas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NovelaAdapter(this, novelas, novela -> mostrarDetallesNovela(novela));

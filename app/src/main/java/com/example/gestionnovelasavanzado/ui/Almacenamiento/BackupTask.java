@@ -11,7 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+//Clase que representa una tarea asíncrona para realizar una copia de seguridad de los datos
 public class BackupTask extends AsyncTask<Void, Void, Boolean> {
+
     //Variables
     private Context context;
     private List<Novela> novelas;
