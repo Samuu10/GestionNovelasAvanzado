@@ -13,6 +13,7 @@ import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManager;
 import java.util.List;
 
+//Clase que representa la pantalla de configuración
 public class ConfiguracionActivity extends AppCompatActivity {
 
     //Variables
@@ -70,8 +71,9 @@ public class ConfiguracionActivity extends AppCompatActivity {
     protected void restoreData() {
         new RestoreTask(this, novelas, preferencesManager).execute();
         //Reiniciar la actividad principal después de restaurar los datos
-        Intent intent = getIntent();
-        finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
     }
 }

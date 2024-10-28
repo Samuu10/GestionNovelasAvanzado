@@ -44,7 +44,11 @@ public class NovelaAdapter extends RecyclerView.Adapter<NovelaAdapter.NovelaView
         Novela novela = novelas.get(position);
         holder.textViewTitulo.setText(novela.getTitulo());
         holder.textViewAutor.setText(novela.getAutor());
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(novela));
+        if (listener != null) {
+            holder.itemView.setOnClickListener(v -> listener.onItemClick(novela));
+        } else {
+            holder.itemView.setOnClickListener(null);
+        }
     }
 
     //Método para obtener el número de elementos en la lista

@@ -9,9 +9,12 @@ import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManage
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+//Clase que representa una tarea asíncrona para restaurar los datos desde un archivo
 public class RestoreTask extends AsyncTask<Void, Void, Boolean> {
+
     //Variables
     private Context context;
     private List<Novela> novelas;
@@ -42,7 +45,7 @@ public class RestoreTask extends AsyncTask<Void, Void, Boolean> {
             fis.read(data);
             fis.close();
             String[] novelasData = new String(data).split("\n");
-            novelas.clear();
+            List<Novela> restoredNovelas = new ArrayList<>();
             for (String novelaData : novelasData) {
                 String[] fields = novelaData.split(",");
                 if (fields[0].equals("theme")) {
@@ -50,10 +53,11 @@ public class RestoreTask extends AsyncTask<Void, Void, Boolean> {
                 } else {
                     Novela novela = new Novela(fields[0], fields[1], Integer.parseInt(fields[2]), fields[3]);
                     novela.setFavorito(Boolean.parseBoolean(fields[4]));
-                    novelas.add(novela);
+                    restoredNovelas.add(novela);
                 }
             }
-            preferencesManager.saveNovelas(novelas);
+            // Sobrescribir la lista de novelas con la lista restaurada
+            preferencesManager.saveNovelas(restoredNovelas);
             return true;
         } catch (IOException e) {
             e.printStackTrace();

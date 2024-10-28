@@ -2,17 +2,14 @@ package com.example.gestionnovelasavanzado.ui.Activities;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
 import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +47,6 @@ public class FavoritosActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NovelaAdapter(this, novelasFavoritas, null);
         recyclerView.setAdapter(adapter);
-
 
         //Botón para volver al MainActivity
         btnVolver = findViewById(R.id.btn_volver);
