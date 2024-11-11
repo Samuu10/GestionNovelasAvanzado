@@ -23,6 +23,7 @@ import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.AlarmManagerUti
 import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.FirebaseHelper;
 import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.SyncTask;
 import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManager;
+import com.example.gestionnovelasavanzado.ui.Widgets.WidgetUpdateService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -241,6 +242,7 @@ public class MainActivity extends AppCompatActivity{
                     novela.setFavorito(!novela.getFavorito());
                     preferencesManager.saveNovelas(novelas);
                     Toast.makeText(this, novela.getFavorito() ? "Añadida a favoritos" : "Eliminada de favoritos", Toast.LENGTH_SHORT).show();
+                    WidgetUpdateService.startActionUpdateWidget(this);
                 });
         builder.create().show();
     }

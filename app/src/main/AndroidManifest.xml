@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gestionnovelasavanzado">
+    package="com.example.gestionnovelasavanzado" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,18 +14,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme_GestionNovelasAvanzado">
-
-        <activity android:name=".ui.Activities.MainActivity"
+        android:theme="@style/Theme_GestionNovelasAvanzado" >
+        <receiver android:name=".ui.Widgets.NovelasFavoritasWidget"
             android:exported="true">
             <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_favoritas" />
+        </receiver>
+
+        <service android:name=".ui.Widgets.WidgetUpdateService" android:exported="false" />
+        <service android:name=".ui.Widgets.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity
+            android:name=".ui.Activities.MainActivity"
+            android:exported="true" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.Activities.FavoritosActivity"></activity>
-        <activity android:name=".ui.Activities.ConfiguracionActivity"></activity>
-
+        <activity android:name=".ui.Activities.FavoritosActivity" />
+        <activity android:name=".ui.Activities.ConfiguracionActivity" />
     </application>
+
 </manifest>
