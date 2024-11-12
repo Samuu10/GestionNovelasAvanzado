@@ -28,13 +28,13 @@ public class BackupTask extends AsyncTask<Void, Void, Boolean> {
         this.handler = new Handler(Looper.getMainLooper());
     }
 
-    //Método para mostrar un mensaje antes de iniciar la copia de seguridad
+    //Metodo para mostrar un mensaje antes de iniciar la copia de seguridad
     @Override
     protected void onPreExecute() {
         handler.post(() -> Toast.makeText(context, "Iniciando copia de seguridad...", Toast.LENGTH_SHORT).show());
     }
 
-    //Método para realizar la copia de seguridad en segundo plano y guardar los datos en un archivo
+    //Metodo para realizar la copia de seguridad en segundo plano y guardar los datos en un archivo
     @Override
     protected Boolean doInBackground(Void... voids) {
         try {
@@ -53,7 +53,7 @@ public class BackupTask extends AsyncTask<Void, Void, Boolean> {
         }
     }
 
-    //Método para mostrar un mensaje después de completar la copia de seguridad
+    //Metodo para mostrar un mensaje después de completar la copia de seguridad
     @Override
     protected void onPostExecute(Boolean result) {
         handler.post(() -> {

@@ -25,19 +25,19 @@ public class PreferencesManager {
         gson = new Gson();
     }
 
-    //Método para guardar el tema de la aplicación
+    //Metodo para guardar el tema de la aplicación
     public void setTheme(boolean isDarkMode) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(KEY_THEME, isDarkMode);
         editor.apply();
     }
 
-    //Método para saber si el tema de la aplicación es oscuro o no
+    //Metodo para saber si el tema de la aplicación es oscuro o no
     public boolean isDarkMode() {
         return sharedPreferences.getBoolean(KEY_THEME, false);
     }
 
-    //Método para guardar la lista de novelas
+    //Metodo para guardar la lista de novelas
     public void saveNovelas(List<Novela> novelas) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String json = gson.toJson(novelas);
@@ -45,7 +45,7 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    //Método para cargar la lista de novelas
+    //Metodo para cargar la lista de novelas
     public List<Novela> loadNovelas() {
         String json = sharedPreferences.getString(KEY_NOVELAS, null);
         Type type = new TypeToken<ArrayList<Novela>>() {}.getType();

@@ -28,17 +28,25 @@ public class WidgetRemoteViews implements RemoteViewsService.RemoteViewsFactory 
     }
 
     @Override
-    public void onDestroy() {}
+    public void onDestroy() {
+        if (favoritas != null) {
+            favoritas.clear();
+        }
+    }
 
     @Override
     public int getCount() {
-        return favoritas.size();
+        return favoritas != null ? favoritas.size() : 0;
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.item_novela);
+        if (favoritas == null || favoritas.size() == 0) {
+            return null;
+        }
+
         Novela novela = favoritas.get(position);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.item_novela);
         views.setTextViewText(R.id.textViewTitulo, novela.getTitulo());
         views.setTextViewText(R.id.textViewAutor, novela.getAutor());
 
@@ -49,17 +57,14 @@ public class WidgetRemoteViews implements RemoteViewsService.RemoteViewsFactory 
     public RemoteViews getLoadingView() {
         return null;
     }
-
     @Override
     public int getViewTypeCount() {
         return 1;
     }
-
     @Override
     public long getItemId(int position) {
         return position;
     }
-
     @Override
     public boolean hasStableIds() {
         return true;

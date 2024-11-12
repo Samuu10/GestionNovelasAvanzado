@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
-
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.Activities.MainActivity;
 
@@ -20,6 +19,9 @@ public class NovelasFavoritasWidget extends AppWidgetProvider {
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
             views.setOnClickPendingIntent(R.id.widget_title, pendingIntent);
+
+            Intent serviceIntent = new Intent(context, WidgetService.class);
+            views.setRemoteAdapter(R.id.widget_listview, serviceIntent);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }

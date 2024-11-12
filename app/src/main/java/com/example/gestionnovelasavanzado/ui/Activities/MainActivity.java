@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gestionnovelasavanzado.R;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.Novela;
 import com.example.gestionnovelasavanzado.ui.GestionNovelas.NovelaAdapter;
-import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.AlarmManagerUtil;
 import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.FirebaseHelper;
 import com.example.gestionnovelasavanzado.ui.GestionSegundoPlano.SyncTask;
 import com.example.gestionnovelasavanzado.ui.SharedPreferences.PreferencesManager;
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity{
         findViewById(R.id.btn_favoritos).setOnClickListener(v -> {
             //Crear un intent para ir a la actividad favoritos
             Intent intent = new Intent(MainActivity.this, FavoritosActivity.class);
-            //Pasar la lista de novelas favoritas a la actividad favoritos a través del método putParcelableArrayListExtra
+            //Pasar la lista de novelas favoritas a la actividad favoritos a través del metodo putParcelableArrayListExtra
             intent.putParcelableArrayListExtra("novelas_favoritas", obtenerNovelasFavoritas());
             //Iniciar la actividad favoritos
             startActivity(intent);
@@ -96,9 +95,6 @@ public class MainActivity extends AppCompatActivity{
             Intent intent = new Intent(MainActivity.this, ConfiguracionActivity.class);
             startActivity(intent);
         });
-
-        //Sincronización automática con AlarmManager cada 2 minutos
-        AlarmManagerUtil.manageSync(this);
     }
 
     @Override
@@ -108,7 +104,7 @@ public class MainActivity extends AppCompatActivity{
         adapter.notifyDataSetChanged();
     }
 
-    //Método para mostrar el diálogo para añadir novela a la lista
+    //Metodo para mostrar el diálogo para añadir novela a la lista
     private void mostrarDialogoAñadirNovela() {
         //Crear el diálogo
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -127,7 +123,7 @@ public class MainActivity extends AppCompatActivity{
         builder.create().show();
     }
 
-    //Método para mostrar el diálogo para eliminar novela de la lista
+    //Metodo para mostrar el diálogo para eliminar novela de la lista
     private void mostrarDialogoEliminarNovela() {
         //Crear el diálogo
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -147,7 +143,7 @@ public class MainActivity extends AppCompatActivity{
         builder.create().show();
     }
 
-    //Método que busca la novela en Firebase y la añade solo a la lista
+    //Metodo que busca la novela en Firebase y la añade solo a la lista
     private void añadirNovelaLista(String titulo) {
         //Verificar primero si la novela ya está en la lista antes de consultar Firebase
         for (Novela novela : novelas) {
@@ -190,7 +186,7 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    //Método para eliminar novela de la lista local
+    //Metodo para eliminar novela de la lista local
     private void eliminarNovelaLista(String titulo) {
         boolean encontrado = false;
         //Bucle para encontrar la novela en la lista
@@ -215,7 +211,7 @@ public class MainActivity extends AppCompatActivity{
         adapter.notifyDataSetChanged();
     }
 
-    //Método para mostrar los detalles de la novela seleccionada
+    //Metodo para mostrar los detalles de la novela seleccionada
     public void mostrarDetallesNovela(Novela novela) {
         //Crear el diálogo
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -247,7 +243,7 @@ public class MainActivity extends AppCompatActivity{
         builder.create().show();
     }
 
-    //Método para obtener las novelas favoritas
+    //Metodo para obtener las novelas favoritas
     public ArrayList<Novela> obtenerNovelasFavoritas() {
         ArrayList<Novela> favoritas = new ArrayList<>();
         for (Novela novela : novelas) {

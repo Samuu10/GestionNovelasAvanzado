@@ -26,14 +26,14 @@ public class SyncTask extends AsyncTask<Void, Integer, String> {
         this.novelas = novelas;
     }
 
-    //Método onPreExecute para mostrar mensaje antes de iniciar la sincronización
+    //Metodo onPreExecute para mostrar mensaje antes de iniciar la sincronización
     @Override
     protected void onPreExecute() {
         //Mostrar notificación de inicio de sincronización
         Toast.makeText(context, "Iniciando sincronización...", Toast.LENGTH_SHORT).show();
     }
 
-    //Método doInBackground para sincronizar la lista de novelas con Firebase
+    //Metodo doInBackground para sincronizar la lista de novelas con Firebase
     @Override
     protected String doInBackground(Void... voids) {
         if (novelas == null || novelas.isEmpty()) {
@@ -64,7 +64,7 @@ public class SyncTask extends AsyncTask<Void, Integer, String> {
         }
     }
 
-    //Método onPostExecute para notificar al usuario de la sincronización
+    //Metodo onPostExecute para notificar al usuario de la sincronización
     @Override
     protected void onPostExecute(String resultado) {
         //Mostrar notificación según el resultado de la sincronización
@@ -72,7 +72,7 @@ public class SyncTask extends AsyncTask<Void, Integer, String> {
         mostrarNotificacion(context, "Sincronización", resultado);
     }
 
-    //Método para mostrar una notificación al usuario
+    //Metodo para mostrar una notificación al usuario
     private void mostrarNotificacion(Context context, String titulo, String mensaje) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         String canalId = "sync_channel";

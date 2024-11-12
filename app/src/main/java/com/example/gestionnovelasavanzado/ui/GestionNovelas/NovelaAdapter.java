@@ -30,7 +30,7 @@ public class NovelaAdapter extends RecyclerView.Adapter<NovelaAdapter.NovelaView
         this.listener = listener;
     }
 
-    //Método para crear una nueva vista
+    //Metodo para crear una nueva vista
     @NonNull
     @Override
     public NovelaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,7 +38,7 @@ public class NovelaAdapter extends RecyclerView.Adapter<NovelaAdapter.NovelaView
         return new NovelaViewHolder(view);
     }
 
-    //Método para enlazar los datos de la lista con los elementos de la vista
+    //Metodo para enlazar los datos de la lista con los elementos de la vista
     @Override
     public void onBindViewHolder(@NonNull NovelaViewHolder holder, int position) {
         Novela novela = novelas.get(position);
@@ -51,7 +51,7 @@ public class NovelaAdapter extends RecyclerView.Adapter<NovelaAdapter.NovelaView
         }
     }
 
-    //Método para obtener el número de elementos en la lista
+    //Metodo para obtener el número de elementos en la lista
     @Override
     public int getItemCount() {
         return novelas.size();

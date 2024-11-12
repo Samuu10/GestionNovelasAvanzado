@@ -15,8 +15,7 @@ public class Novela implements Parcelable {
     private boolean favorito;
 
     //Constructor vacío
-    public Novela() {
-    }
+    public Novela() {}
 
     //Constructor
     public Novela(String titulo, String autor, int añoPublicacion, String sinopsis) {
@@ -64,7 +63,7 @@ public class Novela implements Parcelable {
         this.favorito = favorito;
     }
 
-    //Método equals
+    //Metodo equals
     @Override
     public boolean equals(Object obj) {
         //Verificar si los objetos son iguales
@@ -80,7 +79,7 @@ public class Novela implements Parcelable {
         return titulo != null && titulo.equalsIgnoreCase(novela.titulo);
     }
 
-    //Método hashCode
+    //Metodo hashCode
     @Override
     public int hashCode() {
         //Generar un hash basado en el título
@@ -109,13 +108,13 @@ public class Novela implements Parcelable {
         }
     };
 
-    //Método describeContents implementado de Parcelable
+    //Metodo describeContents implementado de Parcelable
     @Override
     public int describeContents() {
         return 0;
     }
 
-    //Método writeToParcel implementado de Parcelable
+    //Metodo writeToParcel implementado de Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(titulo);

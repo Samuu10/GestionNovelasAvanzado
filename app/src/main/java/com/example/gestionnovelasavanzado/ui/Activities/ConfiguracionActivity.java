@@ -62,12 +62,12 @@ public class ConfiguracionActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(v -> finish());
     }
 
-    //Método para hacer una copia de seguridad de los datos
+    //Metodo para hacer una copia de seguridad de los datos
     protected void backupData() {
         new BackupTask(this, novelas, preferencesManager.isDarkMode()).execute();
     }
 
-    //Método para restaurar los datos
+    //Metodo para restaurar los datos
     protected void restoreData() {
         new RestoreTask(this, novelas, preferencesManager).execute();
         //Reiniciar la actividad principal después de restaurar los datos

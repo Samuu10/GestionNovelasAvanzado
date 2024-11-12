@@ -29,13 +29,13 @@ public class RestoreTask extends AsyncTask<Void, Void, Boolean> {
         this.handler = new Handler();
     }
 
-    //Método para mostrar un mensaje antes de iniciar la restauración de datos
+    //Metodo para mostrar un mensaje antes de iniciar la restauración de datos
     @Override
     protected void onPreExecute() {
         handler.post(() -> Toast.makeText(context, "Iniciando restauración de datos...", Toast.LENGTH_SHORT).show());
     }
 
-    //Método para realizar la restauración de datos en segundo plano y cargar los datos desde un archivo
+    //Metodo para realizar la restauración de datos en segundo plano y cargar los datos desde un archivo
     @Override
     protected Boolean doInBackground(Void... voids) {
         try {
@@ -65,7 +65,7 @@ public class RestoreTask extends AsyncTask<Void, Void, Boolean> {
         }
     }
 
-    //Método para mostrar un mensaje después de completar la restauración de datos
+    //Metodo para mostrar un mensaje después de completar la restauración de datos
     @Override
     protected void onPostExecute(Boolean result) {
         handler.post(() -> {
