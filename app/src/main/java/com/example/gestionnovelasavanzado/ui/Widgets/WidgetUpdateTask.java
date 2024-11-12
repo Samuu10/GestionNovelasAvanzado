@@ -34,7 +34,7 @@ public class WidgetUpdateTask extends AsyncTask<Void, Void, List<Novela>> {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
 
-        views.setTextViewText(R.id.widget_title, "Favoritas (" + favoritas.size() + ")");
+        views.setTextViewText(R.id.widget_title, "FAVORITAS (" + favoritas.size() + ")");
         Intent intent = new Intent(context, WidgetService.class);
         views.setRemoteAdapter(R.id.widget_listview, intent);
 

@@ -15,10 +15,9 @@ public class NovelasFavoritasWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             Intent intent = new Intent(context, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-            views.setOnClickPendingIntent(R.id.widget_title, pendingIntent);
+            views.setOnClickPendingIntent(R.id.widget_button_open_app, pendingIntent);
 
             Intent serviceIntent = new Intent(context, WidgetService.class);
             views.setRemoteAdapter(R.id.widget_listview, serviceIntent);

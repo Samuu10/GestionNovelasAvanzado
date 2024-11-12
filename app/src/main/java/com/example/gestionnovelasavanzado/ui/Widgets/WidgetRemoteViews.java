@@ -1,6 +1,7 @@
 package com.example.gestionnovelasavanzado.ui.Widgets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 import com.example.gestionnovelasavanzado.R;
@@ -49,6 +50,9 @@ public class WidgetRemoteViews implements RemoteViewsService.RemoteViewsFactory 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.item_novela);
         views.setTextViewText(R.id.textViewTitulo, novela.getTitulo());
         views.setTextViewText(R.id.textViewAutor, novela.getAutor());
+
+        Intent fillInIntent = new Intent();
+        views.setOnClickFillInIntent(R.id.item_novela_layout, fillInIntent);
 
         return views;
     }
